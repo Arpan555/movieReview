@@ -51,6 +51,7 @@ function App() {
         <div className="container">
           <form method="POST" onSubmit={handleSubmitByTitle}>
             <h2>By Title</h2>
+            <hr/>
             <label>Title:</label>
             <input
               type="text"
@@ -85,12 +86,14 @@ function App() {
             }
             }/>
           </form>
-        </div>
-        <hr/>
+        </div><br/>
         <FilterByTitle/>
+        <hr/>
+        
         <div className="container">
           <form method="POST" onSubmit={handleSubmitById}>
             <h2>By Id</h2>
+            <hr/>
             <label>Id:</label>
             <input
               type="text"
@@ -116,11 +119,9 @@ function App() {
               }
               }/>
           </form>
-        </div>
-
-        <hr />
+        </div><br/>
         <FilterById/>
-        
+        <hr />
       </center>
     </div>
   );
