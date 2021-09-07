@@ -1,5 +1,5 @@
 import axios from "axios"
-import {fetchFilterByTitleData,fetchFilterByIdData,fetchFilterBySearchData} from "./Redux/Actions/allActions"
+import {fetchFilterByTitleData,fetchFilterByIdData,fetchFilterBySearchData,fetchFilterBySearchMovieData} from "./Redux/Actions/allActions"
 const API="https://www.omdbapi.com"
 const API_KEY="4b4b68f5"
 export const requestFilterByTitle=(state)=>{
@@ -34,6 +34,18 @@ export const requestFilterBySearch=(state)=>{
         try {
             const filterDataBySearchData=await axios.get(`${url}`)
             dispatch(fetchFilterBySearchData(filterDataBySearchData.data))
+        } catch (error) {
+            console.log(error)
+        }
+    }
+}
+export const requestFilterBySearchMovie=(state)=>{
+    return async(dispatch)=>{
+        const {movie,page}=state
+        const url=`${API}/?s=${movie}&page=${page}&apikey=${API_KEY}`
+        try {
+            const filterDataBySearchMovieData=await axios.get(`${url}`)
+            dispatch(fetchFilterBySearchMovieData(filterDataBySearchMovieData.data))
         } catch (error) {
             console.log(error)
         }

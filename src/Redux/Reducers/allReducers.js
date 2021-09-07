@@ -1,9 +1,11 @@
 import { FETCH_FILTER_BY_ID_DATA, FETCH_FILTER_BY_TITLE_DATA,RESET_FILTER_BY_ID_DATA,
-    RESET_FILTER_BY_TITLE_DATA,FETCH_FILTER_BY_SEARCH_DATA,RESET_FILTER_BY_SEARCH_DATA} from "../Actions/index";
+    RESET_FILTER_BY_TITLE_DATA,FETCH_FILTER_BY_SEARCH_DATA,RESET_FILTER_BY_SEARCH_DATA,
+FETCH_FILTER_BY_SEARCH_MOVIE_DATA,RESET_FILTER_BY_SEARCH_MOVIE_DATA} from "../Actions/index";
 const initialState={
     movieFilterDataByTitle:[],
     movieFilterDataById:[],
-    movieFilterDataBySearch:[]
+    movieFilterDataBySearch:[],
+    movieFilterDataBySearchMovie:[]
     }
 export default function reducer(state=initialState,action)
 {
@@ -38,6 +40,16 @@ export default function reducer(state=initialState,action)
             return{
                 ...state,
                 movieFilterDataBySearch:[]
+            }
+        case FETCH_FILTER_BY_SEARCH_MOVIE_DATA:
+            return{
+                ...state,
+                movieFilterDataBySearchMovie:action.payload
+            }
+        case RESET_FILTER_BY_SEARCH_MOVIE_DATA:
+            return{
+                ...state,
+                movieFilterDataBySearchMovie:[]
             }
         default:{
             return state
