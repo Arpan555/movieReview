@@ -5,7 +5,10 @@ const FilterByTitle = () => {
     return (
         <div>
             <center>
-                {filterData.length!==0 ?
+                <img src={filterData.Poster} alt={filterData.Poster}/>
+                
+                {filterData.length!==0 ?(
+                    
                 <table>
                     <tbody> 
                     <tr>
@@ -15,6 +18,9 @@ const FilterByTitle = () => {
                         <th>Released</th>
                         <th>imdID</th>
                         <th>imdb Rating</th>
+                        <th>Actors</th>
+                        <th>Language</th>
+
                     </tr>
                     <tr>
                     <td>{filterData.Title}</td>
@@ -23,10 +29,13 @@ const FilterByTitle = () => {
                     <td>{filterData.Released}</td>
                     <td>{filterData.imdbID}</td>
                     <td>{filterData.imdbRating}</td>
+                    <td>{filterData.Actors}</td>
+                    <td>{filterData.Language}</td>
                     </tr>
                     </tbody>
-                    </table>
-                    :""}
+                    </table>)
+                    
+                    :("")}
             </center>
         </div>
     )

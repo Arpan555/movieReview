@@ -1,10 +1,11 @@
 import "./App.css";
 import React, { useState } from "react";
-import { requestFilterByTitle,requestFilterById } from "./Thunk";
+import { requestFilterByTitle,requestFilterById,requestFilterBySearch } from "./Thunk";
 import { useDispatch } from "react-redux";
-import {resetFilterByIdData,resetFilterByTitleData} from "./Redux/Actions/allActions"
+import {resetFilterByIdData,resetFilterByTitleData,resetFilterBySearchData} from "./Redux/Actions/allActions"
 import FilterByTitle from "./FilterByTitle";
 import FilterById from "./FilterById";
+import FilterBySearch from "./FilterBySearch";
 function App() {
   const dispatch = useDispatch();
   const [filterByTitle, setFilterByTitle] = useState({
@@ -16,6 +17,11 @@ function App() {
     id:"",
     plot:"short"
   })
+  const [filterBySearch,setFilterBySearch]=useState({
+    movie:"",
+    season:"",
+    episode:""
+  })
   const handleInputDataByTitle = (e) => {
     let { name, value } = e.target;
     setFilterByTitle({ ...filterByTitle, [name]: value });
@@ -24,6 +30,10 @@ function App() {
     let { name, value } = e.target;
     setFilterById({ ...filterById, [name]: value });
   };
+  const handleInputDataBySearch=(e)=>{
+    let {name, value}= e.target
+    setFilterBySearch({...filterBySearch, [name]: value })
+  }
   const handleSubmitByTitle = (e) => {
     e.preventDefault();
     if(!filterByTitle.title){
@@ -32,7 +42,6 @@ function App() {
     else{
       dispatch(requestFilterByTitle(filterByTitle));
     }
-    
   };
   const handleSubmitById = (e) => {
     e.preventDefault();
@@ -42,8 +51,16 @@ function App() {
     else{
       dispatch(requestFilterById(filterById));
     }
-    
   };
+  const handleSubmitBySearch= (e) => {
+    e.preventDefault()
+    if (!filterBySearch.movie){
+      alert("Fill The Movie Name")
+    }
+    else{
+      dispatch(requestFilterBySearch(filterBySearch))
+    }
+  }
   return (
     <div>
       <center>
@@ -122,6 +139,39 @@ function App() {
         </div><br/>
         <FilterById/>
         <hr />
+        <div className="container">
+          <form method="POST" onSubmit={handleSubmitBySearch}>
+            <h2>By Movie , Episode and Season </h2>
+            <hr/>
+            <label>Movie Name</label>
+            <input
+              type="text"
+              name="movie"
+              value={filterBySearch.movie}
+              onChange={handleInputDataBySearch}
+            />
+            <label>Season</label>
+            <input type="number" 
+            name="season"
+            value={filterBySearch.season} 
+            onChange={handleInputDataBySearch}/><br/><br/>
+            <label>Epispde</label>
+            <input type="number" 
+            name="episode"
+            value={filterBySearch.episode} 
+            onChange={handleInputDataBySearch}/>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" value="Search" />&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="button" value="Reset" onClick={()=>{
+               dispatch(resetFilterBySearchData()) 
+               setFilterBySearch({movie:"",season:"",episode:""})
+              }
+              }/>
+          </form>
+        </div><br/>
+        <FilterBySearch/>
+        <hr/>
+
       </center>
     </div>
   );

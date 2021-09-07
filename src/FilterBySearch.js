@@ -1,11 +1,11 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-const FilterById= () => {
-    const filterData = useSelector(state => state.reducer.movieFilterDataById)
+const FilterBySearch = () => {
+    const filterData = useSelector(state => state.reducer.movieFilterDataBySearch)
     return (
         <div>
             <center>
-                <img src={filterData.Poster} alt={filterData.Poster}/>
+            <img src={filterData.Poster} alt={filterData.Poster}/>
                 {filterData.length!==0 ?(
                 <table>
                     <tbody> 
@@ -32,9 +32,9 @@ const FilterById= () => {
                     </tr>
                     </tbody>
                     </table>)
-                    :""}
+                    :""}    
             </center>
         </div>
     )
 }
-export default FilterById
+export default FilterBySearch
