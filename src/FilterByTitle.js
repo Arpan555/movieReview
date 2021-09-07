@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 const FilterByTitle = () => {
-    const filterData = useSelector(state => state.reducer.movieFilterData)
+    const filterData = useSelector(state => state.reducer.movieFilterDataByTitle)
     return (
         <div>
             <center>

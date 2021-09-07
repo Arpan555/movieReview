@@ -2,7 +2,9 @@ import "./App.css";
 import React, { useState } from "react";
 import { requestFilterByTitle,requestFilterById } from "./Thunk";
 import { useDispatch } from "react-redux";
-import Filter from "./Filter";
+import {resetFilterByIdData,resetFilterByTitleData} from "./Redux/Actions/allActions"
+import FilterByTitle from "./FilterByTitle";
+import FilterById from "./FilterById";
 function App() {
   const dispatch = useDispatch();
   const [filterByTitle, setFilterByTitle] = useState({
@@ -24,11 +26,23 @@ function App() {
   };
   const handleSubmitByTitle = (e) => {
     e.preventDefault();
-    dispatch(requestFilterByTitle(filterByTitle));
+    if(!filterByTitle.title){
+      alert("Fill The Title Value")
+    }
+    else{
+      dispatch(requestFilterByTitle(filterByTitle));
+    }
+    
   };
   const handleSubmitById = (e) => {
     e.preventDefault();
-    dispatch(requestFilterById(filterById));
+    if(!filterById.id){
+      alert("Fill The Id Value")
+    }
+    else{
+      dispatch(requestFilterById(filterById));
+    }
+    
   };
   return (
     <div>
@@ -63,11 +77,17 @@ function App() {
                 Short
               </option>
               <option value="full">Full</option>
-            </select>
-            <input type="submit" value="Search" />
+            </select>&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" value="Search" />&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="button" value="Reset" onClick={()=> {
+              dispatch(resetFilterByTitleData()) 
+              setFilterByTitle({title:"",year:"",plot:""})
+            }
+            }/>
           </form>
         </div>
         <hr/>
+        <FilterByTitle/>
         <div className="container">
           <form method="POST" onSubmit={handleSubmitById}>
             <h2>By Id</h2>
@@ -88,13 +108,18 @@ function App() {
                 Short
               </option>
               <option value="full">Full</option>
-            </select>
-            <input type="submit" value="Search" />
+            </select>&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" value="Search" />&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="button" value="Reset" onClick={()=>{
+               dispatch(resetFilterByIdData()) 
+               setFilterById({id:"",plot:""})
+              }
+              }/>
           </form>
         </div>
 
         <hr />
-        <Filter/>
+        <FilterById/>
         
       </center>
     </div>
